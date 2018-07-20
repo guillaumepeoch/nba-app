@@ -1,19 +1,22 @@
 import React from 'react';
 
-// Style Modules
-import Style from './header.css';
+// Style CSS Modules
+import style from './header.css';
 
 // Link to route.. Equivalent of a tag
 import { Link } from 'react-router-dom';
 // FontAwesome provides Logo...
-import FontAwesome from 'react-fontawesome'
+import FontAwesome from 'react-fontawesome';
+
+// Import custome funtion SideNavigation
+import SideNavigation from './side_navigation/SideNavigation';
 
 
-const Header = function(){
+const Header = function(props){
 
   const logo = function(){
     return (
-      <Link to="/" className={Style.logo}>
+      <Link to="/" className={style.logo}>
         <img alt="nba logo" src="/images/nba_logo.png" />
       </Link>
     );
@@ -21,15 +24,19 @@ const Header = function(){
 
   const navBars = function(){
     return(
-      <div className={Style.bars}>
+      <div
+      className={style.bars}
+      onClick={()=>props.onOpenNav(true)}
+      >
         <FontAwesome name="bars"></FontAwesome>
       </div>
     );
   };
 
   return(
-    <header className={Style.header}>
-      <div className={Style.headerOpt}>
+    <header className={style.header}>
+      <SideNavigation {...props}/>
+      <div className={style.headerOpt}>
         {navBars()}
         {logo()}
       </div>

@@ -6,14 +6,28 @@ import './layout.css'
 import Header from '../../components/header/Header';
 
 class Layout extends Component{
+
   constructor() {
     super();
-    this.state = {};
+    this.state = {
+      showNav:false
+    };
   }
+
+  toggleSideNav(navBool){
+    this.setState({
+      showNav:navBool
+    });
+  }
+
   render(){
     return (
       <div>
-        <Header />
+        <Header
+          showNav={this.state.showNav}
+          onHideNav={()=>this.toggleSideNav(false)}
+          onOpenNav={()=>this.toggleSideNav(true)}
+          />
         {this.props.children}
         <footer>
           Footer
