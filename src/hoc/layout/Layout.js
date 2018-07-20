@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 // Import CSS
 import './layout.css'
 
+import Header from '../../components/header/Header';
+
 class Layout extends Component{
   constructor() {
     super();
@@ -11,10 +13,8 @@ class Layout extends Component{
   render(){
     return (
       <div>
-        <header>
-          Header
-        </header>
-          {this.props.children}
+        <Header />
+        {this.props.children}
         <footer>
           Footer
         </footer>
