@@ -21,3 +21,7 @@
   padding:10px;
   cursor:pointer;
 }
+
+nav a {
+  text-decoration: none;
+}

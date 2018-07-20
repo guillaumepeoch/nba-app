@@ -35,7 +35,7 @@ const Header = function(props){
 
   return(
     <header className={style.header}>
-      <SideNavigation {...props}/>
+      <SideNavigation {...props} />
       <div className={style.headerOpt}>
         {navBars()}
         {logo()}

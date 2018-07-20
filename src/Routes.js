@@ -7,9 +7,6 @@ import Home from './components/home/Home'
 import Layout from './hoc/layout/Layout'
 
 class Routes extends Component {
-  constructor(){
-    super();
-  }
   render() {
     return (
       <Layout>
