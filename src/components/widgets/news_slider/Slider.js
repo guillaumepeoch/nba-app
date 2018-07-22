@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import SliderTemplates from './SliderTemplates';
+
 class Slider extends Component {
 
   constructor() {
@@ -29,7 +31,7 @@ class Slider extends Component {
   render(){
     return(
       <div>
-          SLIDER
+          <SliderTemplates data={this.state.articles} type="featured"/>
       </div>
     );
   }
