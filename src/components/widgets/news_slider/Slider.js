@@ -4,7 +4,7 @@ import SliderTemplates from './SliderTemplates';
 
 class Slider extends Component {
 
-  constructor() {
+  constructor(props) {
     super();
     this.state = {
       articles:[]
@@ -20,8 +20,9 @@ class Slider extends Component {
       }
       return response.json();
     }).then(myJson => {
+      const articles = myJson.splice(this.props.start,this.props.start+this.props.amount);
       this.setState({
-        articles:myJson
+        articles:articles
       })
     }).catch( function(error){
       console.error(error);
@@ -31,7 +32,11 @@ class Slider extends Component {
   render(){
     return(
       <div>
-          <SliderTemplates data={this.state.articles} type="featured"/>
+          <SliderTemplates
+            data={this.state.articles}
+            type="featured"
+
+          />
       </div>
     );
   }

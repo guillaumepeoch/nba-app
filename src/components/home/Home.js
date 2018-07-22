@@ -6,7 +6,11 @@ class Home extends Component {
   render(){
     return (
       <div>
-        <Slider />
+        <Slider
+          type="featured"
+          start={0}
+          amount={4}
+        />
       </div>
     );
   }

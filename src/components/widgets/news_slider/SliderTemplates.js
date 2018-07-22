@@ -14,7 +14,8 @@ const SliderTemplates = function(props){
       infinite: true,
       speed: 500,
       slidesToShow: 1,
-      slidesToScroll: 1
+      slidesToScroll: 1,
+      ...props.settings
   };
   let template = null;
 
