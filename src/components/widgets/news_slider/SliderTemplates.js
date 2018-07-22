@@ -1,7 +1,11 @@
 import React from 'react';
 
-// Slider
+// Slider for the featured Articles
 import Slider from 'react-slick';
+// Link for the routres
+import { Link } from 'react-router-dom';
+// Using module CSS
+import styles from './slider_templates.css'
 
 const SliderTemplates = function(props){
 
@@ -20,7 +24,14 @@ const SliderTemplates = function(props){
       template = props.data.map(function(article){
         return(
           <div key={article.id}>
-            {article.title}
+            <div className={styles.article}>
+              <img className={styles.image} alt="article" src={`../images/articles/${article.image}`}/>
+              <Link className={styles.link} to={`article/${article.id}`}>
+                <div className={styles.linka}>
+                  {article.title}
+                </div>
+              </Link>
+            </div>
           </div>
         );
       });
