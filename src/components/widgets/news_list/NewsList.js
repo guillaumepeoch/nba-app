@@ -13,22 +13,7 @@ class NewsList extends Component{
     };
   }
 
-  componentWillMount(){
-    fetch(`${URL}/articles`)
-    .then(function(response){
-      return response.json();
-    })
-    .then((myJson) => {
-      const normalAticles = myJson.splice(this.state.start,this.state.amount);
-      const newStart = this.state.start + this.state.amount
-      this.setState({
-        items:normalAticles,
-        start:newStart
-      });
-    });
-  }
-
-  loadMore = () => {
+  request = () => {
     fetch(`${URL}/articles`)
     .then(function(response){
       return response.json();
@@ -41,17 +26,20 @@ class NewsList extends Component{
         start:newStart
       });
     });
-  };
+  }
+
+  componentWillMount(){
+    this.request();
+  }
 
   render(){
-    console.log(this.state);
     return(
       <div>
         <NewsListTemplates
           data={this.state.items}
           type="news"
         />
-      <div onClick={this.loadMore}>
+      <div onClick={this.request}>
           LOAD MORE
         </div>
       </div>
