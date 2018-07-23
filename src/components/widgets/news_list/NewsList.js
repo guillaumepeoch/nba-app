@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import { URL } from '../../../config';
 import NewsListTemplates from './NewsListTemplates';
+import Button from '../button/Button';
 
 class NewsList extends Component{
 
@@ -39,9 +40,11 @@ class NewsList extends Component{
           data={this.state.items}
           type="news"
         />
-      <div onClick={this.request}>
-          LOAD MORE
-        </div>
+      <Button
+        type="loadMore"
+        loadMore={this.request}
+        cta="Load more"
+      />
       </div>
     );
   }
