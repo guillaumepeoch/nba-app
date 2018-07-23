@@ -13,7 +13,7 @@ class Home extends Component {
           amount={4}
         />
       <NewsList
-        start={0}
+        start={3}
         end={6}
         amount={3}
       />
