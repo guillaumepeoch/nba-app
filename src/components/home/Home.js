@@ -1,6 +1,7 @@
 import  React, { Component } from 'react';
 
 import Slider from '../widgets/news_slider/Slider';
+import NewsList from '../widgets/news_list/NewsList'
 
 class Home extends Component {
   render(){
@@ -11,6 +12,11 @@ class Home extends Component {
           start={0}
           amount={4}
         />
+      <NewsList
+        start={0}
+        end={6}
+        amount={3}
+      />
       </div>
     );
   }
