@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import { URL } from '../../../config';
+import NewsListTemplates from './NewsListTemplates';
 
 class NewsList extends Component{
 
@@ -29,7 +30,13 @@ class NewsList extends Component{
     console.log(this.state);
     return(
       <div>
-        NewsList
+        <NewsListTemplates
+          data={this.state.items} 
+          type="news"
+        />
+        <div>
+          LOAD MORE
+        </div>
       </div>
     );
   }

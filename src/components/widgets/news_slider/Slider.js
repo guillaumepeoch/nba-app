@@ -36,7 +36,6 @@ class Slider extends Component {
           <SliderTemplates
             data={this.state.articles}
             type="featured"
-
           />
       </div>
     );
