@@ -14,7 +14,6 @@ class Home extends Component {
         />
       <NewsList
         start={3}
-        end={6}
         amount={3}
       />
       </div>
