@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+//import { Link } from 'react-router-dom';
 import styles from './styles.css'
 
 const Button = function(props){
@@ -18,9 +18,9 @@ const Button = function(props){
     break;
     case "card":
       template = (
-        <Link to="/videos" className={styles.blue_btn}>
+        <div onClick={props.loadMore} className={styles.blue_btn}>
           {props.cta}
-        </Link>
+        </div>
       )
     break;
     default:

@@ -21,7 +21,7 @@ class Home extends Component {
           type="card"
           tittle={true}
           loadMore={true}
-          start={0}
+          start={4}
           amount={3}
         />
         </div>
