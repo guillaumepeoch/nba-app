@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
-import Header from './Header';
-import styles from '../../articles.css';
+import TeamInfo from '../../../widgets/article_info/TeamInfo';
+import PostData from '../../../widgets/article_info/PostData';
 
-class Index extends Component {
+class VideoArticle extends Component{
   state = {
-    article:{},
-    team:''
+    article:[],
+    team:[]
   }
 
   componentWillMount(){
-    let url = new URL("http://localhost:3001/articles"),
+    let url = new URL("http://localhost:3001/videos"),
         params = {id:this.props.match.params.id}
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
     fetch(url).then(function(response){
@@ -24,6 +24,7 @@ class Index extends Component {
         return res.json();
       })
       .then((myJson2)=>{
+        console.log(myJson2[0]);
         this.setState({
           article:myJson[0],
           team:myJson2[0]
@@ -35,26 +36,13 @@ class Index extends Component {
   render(){
     return(
       <div>
-        <Header
-          teamData={this.state.team}
-          date={this.state.article.date}
-          author={this.state.article.author}
-        />
-        <div className={styles.articleBody}>
-          <h1> {this.state.title} </h1>
-          <div
-            className={styles.articleImage}
-            style={{background:`url('/images/articles/${this.state.article.image}')`}}
-          >
-          </div>
-          <div className={styles.articleText}>
-            {this.state.article.body}
-          </div>
-        </div>
+          <TeamInfo
+            teamData={this.state.team}
+          />
+        Videos
       </div>
-
     );
   }
 }
 
-export default Index;
+export default VideoArticle;

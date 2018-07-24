@@ -5,6 +5,7 @@ import { Route, Switch } from 'react-router-dom';
 
 import Home from './components/home/Home'
 import Articles from './components/articles/news/post/index';
+import Videos from './components/articles/videos/video/index';
 import Layout from './hoc/layout/Layout'
 
 class Routes extends Component {
@@ -14,6 +15,7 @@ class Routes extends Component {
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/article/:id" exact component={Articles} />
+          <Route path="/video/:id" exact component={Videos} />
         </Switch>
       </ Layout>
     );

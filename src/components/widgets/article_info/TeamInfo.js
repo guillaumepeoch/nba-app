@@ -5,7 +5,7 @@ const TeamInfo = function(props){
 
   const getWinsLosts = function(){
     let wins, losts = null;
-    if(props.teamData){
+    if(props.teamData.stats){
       wins = props.teamData.stats[0].wins;
       losts = props.teamData.stats[0].defeats;
     }
