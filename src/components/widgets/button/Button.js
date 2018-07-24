@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { Link } from 'react-router-dom';
 import styles from './styles.css'
 
 const Button = function(props){
@@ -15,6 +15,13 @@ const Button = function(props){
           {props.cta}
         </div>
       );
+    break;
+    case "card":
+      template = (
+        <Link to="/videos" className={styles.blue_btn}>
+          {props.cta}
+        </Link>
+      )
     break;
     default:
      template= null;
