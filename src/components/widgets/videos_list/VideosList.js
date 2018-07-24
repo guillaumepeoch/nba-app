@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import styles from './videos_list.css';
-
-import Button from '../button/Button'
+import { URL } from '../../../config';
+import Button from '../button/Button';
+import VideosListTemplates from './VideosListTemplates';
 
 class VideosList extends Component {
 
@@ -14,17 +15,50 @@ class VideosList extends Component {
   }
 
   componentWillMount(){
+    // Get the Videos
+    fetch(`${URL}/videos`)
+    .then(function(res){
+      return res.json();
+    })
+    .then((myVideos)=>{
+      let splicedVideos = myVideos.splice(this.props.start, this.props.amount);
+      this.setState({
+        videos:splicedVideos
+      });
+    });
+
+    // Get the teams
+    fetch(`${URL}/teams`)
+    .then(function(res){
+      return res.json();
+    })
+    .then((myTeams)=>{
+      this.setState({
+        teams:myTeams
+      });
+    });
 
   }
 
-  getTitle = (title) => {
+  getTitle(title){
     return title ?
       <h3><strong>NBA</strong> Videos</h3>
       :
       null
   }
 
-  getButton = (loadMore) => {
+  getVideos(){
+    return (
+      <div>
+        <VideosListTemplates
+          videos={this.state.videos}
+          teams={this.state.teams}
+        />
+      </div>
+    );
+  }
+
+  getButton(loadMore){
     return loadMore ?
       <Button
         type={this.props.type}
@@ -38,10 +72,12 @@ class VideosList extends Component {
     return(
       <div className={styles.videoList_wrapper}>
         {this.getTitle(this.props.tittle)}
+        {this.getVideos()}
         {this.getButton(this.props.loadMore)}
       </div>
     );
   }
+
 }
 
 
