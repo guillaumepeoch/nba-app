@@ -20,7 +20,9 @@
 .left {
     background-size: cover !important;
 
+}
 
+.left div {
     width:90px;
     height:90px;
     background-size:  40px !important;
@@ -28,15 +30,6 @@
     background-position: center center !important;
     background: url('/images/play.png');
 }
-
-/* .left div {
-    width:90px;
-    height:90px;
-    background-size:  40px !important;
-    background-repeat: no-repeat !important;
-    background-position: center center !important;
-    background: url('/images/play.png');
-} */
 
 .right {
     flex-grow: 1;

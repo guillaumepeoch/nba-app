@@ -17,14 +17,14 @@ const CardInfo = function(props){
   }
 
   return(
-    <div className="styles.cardInfo">
-      <div className="styles.teamName">
+    <div className={styles.cardInfo}>
+      <div className={styles.teamName}>
         {teamName()}
       </div>
-        <span className={styles.date}>
-          <FontAwesome name="o-clock"/>
-          {props.date}
-        </span>
+      <span className={styles.date}>
+        <FontAwesome name="o-clock"/>
+        {props.date}
+      </span>
     </div>
   )
 }

@@ -27,7 +27,7 @@ class VideosList extends Component {
     });
 
     // Get the teams
-    if (this.state.teams.length) {
+    if (!this.state.teams.length) {
       fetch(`${URL}/teams`).then(function(res) {
         return res.json();
       }).then((myTeams) => {
@@ -57,7 +57,6 @@ class VideosList extends Component {
   }
 
   loadMore = () => {
-    console.log("loadMore");
     fetch(`${URL}/videos`).then(function(res) {
       return res.json();
     }).then((myVideos) => {

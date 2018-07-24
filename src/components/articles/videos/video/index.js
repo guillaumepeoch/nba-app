@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
+
 import TeamInfo from '../../../widgets/article_info/TeamInfo';
-import PostData from '../../../widgets/article_info/PostData';
+import VideosList from '../../../widgets/videos_list/VideosList';
+
+import styles from '../../articles.css';
 
 class VideoArticle extends Component{
   state = {
@@ -24,7 +27,6 @@ class VideoArticle extends Component{
         return res.json();
       })
       .then((myJson2)=>{
-        console.log(myJson2[0]);
         this.setState({
           article:myJson[0],
           team:myJson2[0]
@@ -39,7 +41,23 @@ class VideoArticle extends Component{
           <TeamInfo
             teamData={this.state.team}
           />
-        Videos
+        <div className={styles.videoWrapper}>
+          <h1>{this.state.article.title}</h1>
+          <iframe
+            title="videoplayer"
+            width="100%"
+            height="300px"
+            src={`https://www.youtube.com/embed/${this.state.article.url}`}
+          >
+          </iframe>
+          <VideosList
+            type="card"
+            tittle={true}
+            loadMore={true}
+            start={4}
+            amount={3}
+          />
+        </div>
       </div>
     );
   }
