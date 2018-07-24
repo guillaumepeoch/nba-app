@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Header from './Header';
-import Body from './Body';
+import styles from '../../articles.css';
 
 class Index extends Component {
   state = {
@@ -40,8 +40,19 @@ class Index extends Component {
           date={this.state.article.date}
           author={this.state.article.author}
         />
-        <Body />
+        <div className={styles.articleBody}>
+          <h1> {this.state.title} </h1>
+          <div
+            className={styles.articleImage}
+            style={{background:`url('/images/articles/${this.state.article.image}')`}}
+          >
+          </div>
+          <div className={styles.articleText}>
+            {this.state.article.body}
+          </div>
+        </div>
       </div>
+
     );
   }
 }

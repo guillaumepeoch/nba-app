@@ -10,7 +10,7 @@ const TeamInfo = function(props){
       losts = props.teamData.stats[0].defeats;
     }
     return (
-      <span> W:{wins} - L{losts}: </span>
+      <span> W:{wins} - L:{losts} </span>
     );
   }
 
