@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { URL } from '../../../config';
+import { URLDev } from '../../../config';
 import NewsListTemplates from './NewsListTemplates';
 import Button from '../button/Button';
 
@@ -16,7 +16,7 @@ class NewsList extends Component {
   }
 
   request = () => {
-    fetch(`${URL}/articles`)
+    fetch(`${URLDev}/articles`)
     .then(function(response){
       return response.json();
     })
@@ -36,7 +36,7 @@ class NewsList extends Component {
 
     // Requesting teams
     if(!this.state.teams.length){
-      fetch(`${URL}/teams`)
+      fetch(`${URLDev}/teams`)
       .then(function(res){
         return res.json();
       })

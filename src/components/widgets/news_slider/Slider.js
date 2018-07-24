@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import SliderTemplates from './SliderTemplates';
-import { URL } from '../../../config';
+import { URLDev } from '../../../config';
 
 class Slider extends Component {
 
@@ -13,7 +13,7 @@ class Slider extends Component {
   }
 
   componentWillMount(){
-    fetch(`${URL}/articles`).then(function(response){
+    fetch(`${URLDev}/articles`).then(function(response){
       if (response.status !== 200) {
         console.log('Looks like there was a problem. Status Code: ' +
           response.status);

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import TeamInfo from '../../../widgets/article_info/TeamInfo';
-import VideosList from '../../../widgets/videos_list/VideosList';
+import VideosListRelated from '../../../widgets/videos_list/VideosListRelated';
 
 import styles from '../../articles.css';
 
@@ -50,12 +50,13 @@ class VideoArticle extends Component{
             src={`https://www.youtube.com/embed/${this.state.article.url}`}
           >
           </iframe>
-          <VideosList
+          <VideosListRelated
             type="card"
             tittle={true}
-            loadMore={true}
-            start={4}
+            loadMore={false}
+            start={0}
             amount={3}
+            relatedTeam={this.state.team.name}
           />
         </div>
       </div>

@@ -4,7 +4,6 @@ import CardInfo from '../card_info/CardInfo';
 import { Link } from 'react-router-dom';
 
 const VideosListTemplates = function(props){
-  console.log(props)
   const videos = props.videos.map(function(video,i){
     return (
       <Link to={`/video/${video.id}`} key={i}>

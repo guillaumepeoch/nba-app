@@ -1,27 +1,31 @@
 import React, {Component} from 'react';
 import styles from './videos_list.css';
-import {URLDev} from '../../../config';
+import { URLDev } from '../../../config';
 import Button from '../button/Button';
 import VideosListTemplates from './VideosListTemplates';
 
-class VideosList extends Component {
+class VideosListRelated extends Component {
 
   state = {
     teams: [],
     videos: [],
+    relatedTeam: this.props.start,
     start: this.props.start,
     end: this.props.end,
     amount: this.props.amount
   }
 
   componentWillMount() {
-    // Get the Videos
-    fetch(`${URLDev}/videos`).then(function(res) {
-      return res.json();
-    }).then((myVideos) => {
-      let splicedVideos = myVideos.splice(this.props.start, this.props.amount);
+    let url = new URL("http://localhost:3001/videos"),
+        params = {tags:["Boston","Oklahoma"]}
+    Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
+    fetch(url).then(function(response){
+      return response.json();
+    })
+    .then((myJson)=>{
+      let splicedVideos = myJson.splice(this.props.start, this.props.amount);
       this.setState({
-        videos: splicedVideos,
+        videos:splicedVideos,
         start: this.props.start + this.props.amount
       });
     });
@@ -34,14 +38,6 @@ class VideosList extends Component {
         this.setState({teams: myTeams});
       });
     }
-  }
-
-  getTitle(title) {
-    return title
-      ? <h3>
-          <strong>NBA</strong>
-          Videos</h3>
-      : null
   }
 
   getVideos() {
@@ -57,7 +53,10 @@ class VideosList extends Component {
   }
 
   loadMore = () => {
-    fetch(`${URLDev}/videos`).then(function(res) {
+    let url = new URL("http://localhost:3001/videos"),
+        params = {tags:["Boston","Oklahoma"]}
+    Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
+    fetch(url).then(function(res) {
       return res.json();
     }).then((myVideos) => {
       let splicedVideos = myVideos.splice(this.state.start, this.state.amount);
@@ -74,7 +73,6 @@ class VideosList extends Component {
 
   render() {
     return (<div className={styles.videoList_wrapper}>
-      {this.getTitle(this.props.tittle)}
       {this.getVideos()}
       {this.getButton(this.props.loadMore)}
     </div>);
@@ -82,4 +80,4 @@ class VideosList extends Component {
 
 }
 
-export default VideosList;
+export default VideosListRelated;
