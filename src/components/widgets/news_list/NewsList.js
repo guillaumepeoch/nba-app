@@ -4,11 +4,12 @@ import { URL } from '../../../config';
 import NewsListTemplates from './NewsListTemplates';
 import Button from '../button/Button';
 
-class NewsList extends Component{
+class NewsList extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
+      teams:[],
       items:[],
       ...this.props
     };
@@ -20,31 +21,48 @@ class NewsList extends Component{
       return response.json();
     })
     .then((myJson) => {
-      const normalAticles = myJson.splice(this.state.start,this.state.amount);
-      const newStart = this.state.start + this.state.amount
+      let normalArticles = myJson.splice(this.state.start,this.state.amount);
+      const newStart = this.state.start + this.state.amount;
       this.setState({
-        items:[...this.state.items,...normalAticles],
+        items:[...this.state.items,...normalArticles],
         start:newStart
       });
     });
   }
 
   componentWillMount(){
+    // Requesting Articles
     this.request();
+
+    // Requesting teams
+    if(!this.state.teams.length){
+      fetch(`${URL}/teams`)
+      .then(function(res){
+        return res.json();
+      })
+      .then((myTeams) => {
+        this.setState({
+          teams:myTeams
+        });
+      });
+    }
   }
+
+
 
   render(){
     return(
       <div>
         <NewsListTemplates
           data={this.state.items}
+          teams={this.state.teams}
           type="news"
         />
-      <Button
-        type="loadMore"
-        loadMore={this.request}
-        cta="Load more"
-      />
+        <Button
+          type="loadMore"
+          loadMore={this.request}
+          cta="Load more"
+        />
       </div>
     );
   }

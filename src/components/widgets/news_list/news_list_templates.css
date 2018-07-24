@@ -17,13 +17,6 @@
     text-decoration:none;
 }
 
-
-
-
-
-
-
-
 .newsList_wrapper {
     box-sizing: border-box;
     opacity: 0;
@@ -35,8 +28,6 @@
     opacity:1;
     transform: translateX(0%)
 }
-
-
 
 .flex_wrapper {
     display: flex;

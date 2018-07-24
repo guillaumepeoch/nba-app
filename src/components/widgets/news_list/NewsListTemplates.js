@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
+import CardInfo from '../card_info/CardInfo';
 import styles from './news_list_templates.css';
 
 
@@ -11,7 +12,7 @@ const NewsListTemplates = function(props){
 
   switch(props.type){
     case "news":
-      template =  props.data.map(function(article, index){
+      template =  props.data.map((article, index)=>{
         return(
           <CSSTransition
             classNames={{
@@ -23,6 +24,11 @@ const NewsListTemplates = function(props){
           >
           <div className={styles.newslist_item}>
             <Link to={`/article/${article.id}`}>
+              <CardInfo
+                teams={props.teams}
+                teamid={article.team}
+                date={article.date}
+              ></CardInfo>
               <h2>{article.title}</h2>
             </Link>
           </div>
