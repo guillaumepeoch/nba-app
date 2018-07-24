@@ -1,13 +1,28 @@
-import React, { Component } from 'react';
+import React from 'react';
+import TeamInfo from '../../../widgets/article_info/TeamInfo';
+import PostData from '../../../widgets/article_info/PostData';
 
-class Header extends Component {
-  render(){
+const Header = function(props){
+
+  const getTeamInfo = function(){
     return(
       <div>
-        Header
+        <TeamInfo
+          teamData={props.teamData}
+        />
+        <PostData
+          date={props.date}
+          author={props.author}
+        />
       </div>
     );
   }
+
+  return(
+    <div>
+      {getTeamInfo()}
+    </div>
+  );
 }
 
 export default Header;

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Header from './Header';
 import Body from './Body';
-//import { URLdev } from '../../../../config'
 
 class Index extends Component {
   state = {
@@ -17,7 +16,6 @@ class Index extends Component {
       return response.json();
     })
     .then((myJson)=>{
-      console.log(myJson)
       let url2 = new URL("http://localhost:3001/teams"),
           params2 = {id:myJson[0].team}
       Object.keys(params2).forEach(key => url2.searchParams.append(key, params[key]))
@@ -38,7 +36,7 @@ class Index extends Component {
     return(
       <div>
         <Header
-          teamData={this.state.article}
+          teamData={this.state.team}
           date={this.state.article.date}
           author={this.state.article.author}
         />
