@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import { URLDev } from '../../../../config';
 import TeamInfo from '../../../widgets/article_info/TeamInfo';
 import VideosListRelated from '../../../widgets/videos_list/VideosListRelated';
 
@@ -12,14 +12,14 @@ class VideoArticle extends Component{
   }
 
   componentWillMount(){
-    let url = new URL("http://localhost:3001/videos"),
+    let url = new URL(`${URLDev}/videos`),
         params = {id:this.props.match.params.id}
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
     fetch(url).then(function(response){
       return response.json();
     })
     .then((myJson)=>{
-      let url2 = new URL("http://localhost:3001/teams"),
+      let url2 = new URL(`${URLDev}/teams`),
           params2 = {id:myJson[0].team}
       Object.keys(params2).forEach(key => url2.searchParams.append(key, params2[key]))
       fetch(url2)
@@ -56,7 +56,7 @@ class VideoArticle extends Component{
             loadMore={false}
             start={0}
             amount={3}
-            relatedTeam={this.state.team.name}
+            relatedTeam={this.state.team.city || null}
           />
         </div>
       </div>

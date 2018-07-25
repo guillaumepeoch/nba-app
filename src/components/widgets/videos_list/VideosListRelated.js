@@ -9,20 +9,22 @@ class VideosListRelated extends Component {
   state = {
     teams: [],
     videos: [],
-    relatedTeam: this.props.start,
+    relatedTeam: this.props.relatedTeam,
     start: this.props.start,
     end: this.props.end,
     amount: this.props.amount
   }
 
   componentWillMount() {
-    let url = new URL("http://localhost:3001/videos"),
+    let url = new URL(`${URLDev}/videos`),
         params = {tags:["Boston","Oklahoma"]}
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
+    console.log(url);
     fetch(url).then(function(response){
       return response.json();
     })
     .then((myJson)=>{
+      console.log(myJson);
       let splicedVideos = myJson.splice(this.props.start, this.props.amount);
       this.setState({
         videos:splicedVideos,
