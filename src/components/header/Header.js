@@ -24,11 +24,16 @@ const Header = function(props){
 
   const navBars = function(){
     return(
-      <div
-      className={style.bars}
-      onClick={()=>props.onOpenNav(true)}
-      >
-        <FontAwesome name="bars"></FontAwesome>
+      <div className={style.bars}>
+        <FontAwesome
+          name="bars"
+          onClick={()=>props.onOpenNav(true)}
+          style={{
+                    color:'#dfdfdf',
+                    padding:'10px',
+                    cursor:'pointer'
+                }}
+        />
       </div>
     );
   };

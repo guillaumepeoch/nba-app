@@ -19,12 +19,10 @@ class VideosListRelated extends Component {
     let url = new URL(`${URLDev}/videos`),
         params = {tags:["Boston","Oklahoma"]}
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
-    console.log(url);
     fetch(url).then(function(response){
       return response.json();
     })
     .then((myJson)=>{
-      console.log(myJson);
       let splicedVideos = myJson.splice(this.props.start, this.props.amount);
       this.setState({
         videos:splicedVideos,
