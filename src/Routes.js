@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-
-// BrowserRouter need to be in {} because its a member import
 import { Route, Switch } from 'react-router-dom';
 
 import Home from './components/home/Home'
 import Articles from './components/articles/news/post/index';
+import News from './components/news/News';
 import ArticleVideos from './components/articles/videos/video/index';
 import Videos from './components/videos/Videos';
 
@@ -16,6 +15,7 @@ class Routes extends Component {
       <Layout>
         <Switch>
           <Route path="/" exact component={Home} />
+          <Route path="/news" exact component={News} />
           <Route path="/article/:id" exact component={Articles} />
           <Route path="/videos" exact component={Videos} />
           <Route path="/video/:id" exact component={ArticleVideos} />
