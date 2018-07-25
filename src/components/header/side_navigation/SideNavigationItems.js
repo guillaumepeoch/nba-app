@@ -7,7 +7,7 @@ import FontAwesome from 'react-fontawesome';
 import style from './sideNavigation.css';
 
 
-const SideNavigationItems = function(){
+const SideNavigationItems = function(props){
 
   const items = [
     {
@@ -45,7 +45,7 @@ const SideNavigationItems = function(){
   const getItems = function(){
     return items.map(({ type, icon, text, link}, index)=>{
       return(
-        <div className={type} key={index}>
+        <div className={type} key={index} onClick={props.onHideNav}>
           <Link to={link}>
             <FontAwesome name={icon}></FontAwesome>
             {text}
