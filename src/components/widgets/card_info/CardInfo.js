@@ -6,15 +6,11 @@ import Moment from 'moment';
 
 const CardInfo = function(props){
 
-  const teamName = function(){
-    let team = props.teams.find(function(team){
-      return team.teamId === props.teamid
+  const teamName = function(teams, teamId){
+    const team = teams.find(function(team){
+      return team.teamId === teamId
     });
-    if(team){
-      return team.name
-    } else {
-      return ''
-    }
+     return team ? team.name : ''
   }
 
   const dateFormat = function(weirdDate){
@@ -24,7 +20,7 @@ const CardInfo = function(props){
   return(
     <div className={styles.cardInfo}>
       <div className={styles.teamName}>
-        {teamName()}
+        {teamName(props.teams,props.teamid)}
       </div>
       <span className={styles.date}>
         <FontAwesome name="o-clock"/>

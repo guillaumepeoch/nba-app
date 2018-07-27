@@ -18,7 +18,7 @@ class Slider extends Component {
 
   componentWillMount(){
 
-    firebaseArticles.limitToFirst(3).once('value')
+    firebaseArticles.limitToFirst(this.props.amount).once('value')
     .then(function(snapshot){
       return snapshot.val();
     })
@@ -29,7 +29,7 @@ class Slider extends Component {
       });
     })
     .catch(function(e){
-      console.err(e);
+      console.log(e);
     })
 
 

@@ -10,18 +10,17 @@ class Home extends Component {
       <div>
         <Slider
           type="featured"
-          start={0}
           amount={4}
         />
         <NewsList
-          start={3}
+          start={4}
           amount={3}
         />
         <VideosList
           type="card"
           tittle={true}
           loadMore={true}
-          start={4}
+          start={0}
           amount={3}
         />
         </div>

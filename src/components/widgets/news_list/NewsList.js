@@ -15,17 +15,18 @@ class NewsList extends Component {
     };
   }
 
-  request(){
-    firebaseArticles.orderByChild('id').startAt(this.state.start).endAt(this.state.start + this.state.amount).once('value')
+  requestArticles = () => {
+    const start = this.state.start;
+    const end = this.state.start + this.state.amount;
+    firebaseArticles.orderByChild('id').startAt(start).endAt(end - 1 ).once('value')
     .then(function(snapshot){
       return snapshot.val();
     })
     .then((articlesObj)=>{
         const articles = firebaseLooper(articlesObj);
-        const newStart = this.state.start + this.state.amount;
         this.setState({
           items:[...this.state.items,...articles],
-          start:newStart
+          start:end
         });
     })
     .catch(function(e){
@@ -35,11 +36,13 @@ class NewsList extends Component {
 
   componentWillMount(){
     // Requesting Articles
-    this.request();
+    this.requestArticles();
 
     // Requesting teams
-    if(!this.state.teams.length){
+    !this.state.teams.length && this.requestingTeams();
+  }
 
+  requestingTeams(){
       firebaseTeams.once('value')
       .then(function(snapshot){
         return snapshot.val();
@@ -53,6 +56,7 @@ class NewsList extends Component {
       .catch(function(e){
         console.err(e);
       });
+
       // fetch(`${URLDev}/teams`)
       // .then(function(res){
       //   return res.json();
@@ -62,10 +66,7 @@ class NewsList extends Component {
       //     teams:myTeams
       //   });
       // });
-    }
   }
-
-
 
   render(){
     return(
@@ -77,7 +78,7 @@ class NewsList extends Component {
         />
         <Button
           type="loadMore"
-          loadMore={this.request}
+          loadMore={this.requestArticles}
           cta="Load more"
         />
       </div>
