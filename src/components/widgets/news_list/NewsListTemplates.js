@@ -12,7 +12,7 @@ const NewsListTemplates = function(props){
 
   switch(props.type){
     case "news":
-      template =  props.data.map((article, index)=>{
+      template = props.data.map((article, index)=>{
         return(
           <CSSTransition
             classNames={{

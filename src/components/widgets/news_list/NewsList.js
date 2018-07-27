@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { URLDev } from '../../../config';
+import { firebaseLooper, firebaseArticles, firebaseTeams } from '../../../firebase';
 import NewsListTemplates from './NewsListTemplates';
 import Button from '../button/Button';
 
@@ -15,18 +15,21 @@ class NewsList extends Component {
     };
   }
 
-  request = () => {
-    fetch(`${URLDev}/articles`)
-    .then(function(response){
-      return response.json();
+  request(){
+    firebaseArticles.orderByChild('id').startAt(this.state.start).endAt(this.state.start + this.state.amount).once('value')
+    .then(function(snapshot){
+      return snapshot.val();
     })
-    .then((myJson) => {
-      let normalArticles = myJson.splice(this.state.start,this.state.amount);
-      const newStart = this.state.start + this.state.amount;
-      this.setState({
-        items:[...this.state.items,...normalArticles],
-        start:newStart
-      });
+    .then((articlesObj)=>{
+        const articles = firebaseLooper(articlesObj);
+        const newStart = this.state.start + this.state.amount;
+        this.setState({
+          items:[...this.state.items,...articles],
+          start:newStart
+        });
+    })
+    .catch(function(e){
+      console.err(e);
     });
   }
 
@@ -36,15 +39,29 @@ class NewsList extends Component {
 
     // Requesting teams
     if(!this.state.teams.length){
-      fetch(`${URLDev}/teams`)
-      .then(function(res){
-        return res.json();
+
+      firebaseTeams.once('value')
+      .then(function(snapshot){
+        return snapshot.val();
       })
-      .then((myTeams) => {
+      .then((teamsObj)=>{
+        const teams = firebaseLooper(teamsObj);
         this.setState({
-          teams:myTeams
+          teams:teams
         });
+      })
+      .catch(function(e){
+        console.err(e);
       });
+      // fetch(`${URLDev}/teams`)
+      // .then(function(res){
+      //   return res.json();
+      // })
+      // .then((myTeams) => {
+      //   this.setState({
+      //     teams:myTeams
+      //   });
+      // });
     }
   }
 

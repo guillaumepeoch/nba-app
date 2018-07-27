@@ -29,7 +29,7 @@ class Slider extends Component {
       });
     })
     .catch(function(e){
-      console.log(e);
+      console.err(e);
     })
 
 
