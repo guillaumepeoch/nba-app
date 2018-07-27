@@ -12,7 +12,7 @@ import * as firebase from 'firebase';
 
   firebase.initializeApp(config);
 
-  const firebaseLooper = function(thing){
+  const firebaseLooper = function(object){
     const data = [];
     for(let param in object){
       data.push({
