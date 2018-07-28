@@ -20,7 +20,7 @@ import * as firebase from 'firebase';
           id:param
       });
     }
-    return data;
+    return data
   }
 
   const firebaseDB = firebase.database();
