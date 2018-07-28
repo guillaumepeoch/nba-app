@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Header from './Header';
 import styles from '../../articles.css';
 import { firebaseDB, firebaseTeams, firebaseLooper } from '../../../../firebase';
+import moment from 'moment';
 
 class Index extends Component {
   state = {
@@ -59,7 +60,7 @@ class Index extends Component {
       <div>
         <Header
           teamData={this.state.team}
-          date={this.state.article.date}
+          date={moment(this.state.article.date).format("MMM Do YY")}
           author={this.state.article.author}
         />
         <div className={styles.articleBody}>

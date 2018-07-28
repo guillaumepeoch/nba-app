@@ -6,7 +6,7 @@ const PostData = function(props){
   return (
     <div className={styles.articlePostData}>
       <div>
-        Date :
+        Date : 
         <span>{props.date}</span>
       </div>
       <div>
