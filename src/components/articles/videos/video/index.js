@@ -8,28 +8,23 @@ import styles from '../../articles.css';
 class VideoArticle extends Component{
   state = {
     article:[],
-    team:[]
+    team:[],
+    teams:[],
+    related:[]
   }
 
   componentWillMount(){
-
     firebaseDB.ref(`videos/${this.props.match.params.id}`).once('value')
     .then((snapshot)=>{
-
       const video = snapshot.val();
-      this.setState({
-        article:video
-      });
-
       const teamId = video.team;
       firebaseTeams.orderByChild('id').equalTo(teamId).once('value')
       .then((snapshot)=>{
-
         const team = firebaseLooper(snapshot.val())[0];
         this.setState({
-          team:team
+          team:team,
+          article:video
         })
-
       })
     })
     // let url = new URL(`${URLDev}/videos`),
@@ -74,9 +69,8 @@ class VideoArticle extends Component{
             type="card"
             tittle={true}
             loadMore={false}
-            start={0}
             amount={3}
-            relatedTeam={this.state.team.city || null}
+            relatedTeam={this.state.team.teamId}
           />
         </div>
       </div>
