@@ -14,7 +14,7 @@ class SignIn extends Component {
         config:{
           name:'email',
           type:'email',
-          placeHolder:'Enter your email'
+          placeholder:'Enter your email'
         },
         validation:{
           required:true,
@@ -30,7 +30,7 @@ class SignIn extends Component {
         config:{
           name:'password',
           type:'password',
-          placeHolder:'Enter your password'
+          placeholder:'Enter your password'
         },
         validation:{
           required:true,
@@ -43,11 +43,19 @@ class SignIn extends Component {
     }
   }
 
+  updateState(e, id, blur){
+      console.log(e, id, blur);
+  }
+
   render(){
     return (
     <div className={styles.logContainer}>
       <form>
-        <FormField formdata={this.state.formdata.email}/>
+        <h2>Sign In</h2>
+        <FormField
+          id='email'
+          formdata={this.state.formdata.email}
+          change={this.updateState}/>
         <FormField formdata={this.state.formdata.password}/>
       </form>
     </div>
