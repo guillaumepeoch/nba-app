@@ -92,13 +92,53 @@ class SignIn extends Component {
         error = valid ? error : [valid, message];
     }
 
+
     return error;
+  }
+
+  submitButton(){
+    return this.state.loading ?
+    'Loading...'
+    : (
+      <div>
+        <button onClick={(e)=>{this.submitForm(e,true)}}>Log In</button>
+        <button onClick={(e)=>{this.submitForm(e,false)}}>Register Now</button>
+      </div>
+    );
+  }
+
+  submitForm = (e, type) => {
+    e.preventDefault();
+
+    if(type !== null ){
+      let valid = true;
+      let dataToSubmit = {};
+      for(let key in this.state.formdata){
+          valid = this.state.formdata[key].valid && valid;
+          dataToSubmit[key]=this.state.formdata[key].value;
+      }
+
+      if(valid){
+        this.setState({
+          loading:true,
+          registerError:''
+        })
+        if(type){
+          console.log('Login')
+        } else {
+          console.log('Register');
+        }
+        console.log(dataToSubmit);
+      } else {
+        console.log('Not valid!');
+      }
+    }
   }
 
   render(){
     return (
     <div className={styles.logContainer}>
-      <form>
+      <form onSubmit={(e)=>this.submitForm(e,null)}>
         <h2>Sign In</h2>
         <FormField
           id='email'
@@ -110,6 +150,7 @@ class SignIn extends Component {
           formdata={this.state.formdata.password}
           change={this.updateForm}
           />
+        {this.submitButton()}
       </form>
     </div>
   );
