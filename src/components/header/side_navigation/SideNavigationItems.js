@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { Link } from 'react-router-dom';
-
+import { Link, withRouter } from 'react-router-dom';
+import { firebase } from '../../../firebase';
 import FontAwesome from 'react-fontawesome';
 
 import style from './sideNavigation.css';
@@ -9,51 +9,99 @@ import style from './sideNavigation.css';
 
 const SideNavigationItems = function(props){
 
+  console.log(props.user)
+
   const items = [
     {
         type: style.option,
         icon: 'home',
         text: 'Home',
-        link: '/'
+        link: '/',
+        login: ''
     },
     {
         type: style.option,
         icon: 'file-text-o',
         text: 'News',
-        link: '/news'
+        link: '/news',
+        login: ''
     },
     {
         type: style.option,
         icon: 'play',
         text: 'Videos',
-        link: '/videos'
+        link: '/videos',
+        login: ''
     },
     {
         type: style.option,
         icon: 'sign-in',
         text: 'Sign in',
-        link: '/sign-in'
+        link: '/sign-in',
+        login: true
     },
     {
         type: style.option,
         icon: 'sign-out',
         text: 'Sign out',
-        link: '/sign-out'
+        link: '/sign-out',
+        login: false
     }
   ];
 
+  const restricted = function(item,i){
+    let template = null;
+
+    if(props.user === null && item.login){
+      template = getElement(item,i);
+    }
+
+    if(props.user !== null && !item.login){
+      if(item.link === '/sign-out'){
+        template = (
+          <div
+            className={item.type}
+            key={i}
+            onClick={(e)=>{
+              firebase.auth().signOut()
+              .then(()=>{
+                props.history.push('/');
+              })
+            }}>
+            <Link to={item.link}>
+              <FontAwesome name={item.icon}></FontAwesome>
+              {item.text}
+            </Link>
+          </div>
+        )
+      } else {
+        template = getElement(item,i);
+      }
+    }
+
+    return template
+  }
+
   const getItems = function(){
-    return items.map(({ type, icon, text, link}, index)=>{
-      return(
-        <div className={type} key={index} onClick={props.onHideNav}>
-          <Link to={link}>
-            <FontAwesome name={icon}></FontAwesome>
-            {text}
-          </Link>
-        </div>
-      );
+    return items.map((item, index)=>{
+      if(item.login === ''){
+        return getElement(item,index);
+      } else {
+        return restricted(item, index);
+      }
     });
   };
+
+  const getElement = function(item, index){
+    return(
+      <div className={item.type} key={index} onClick={props.onHideNav}>
+        <Link to={item.link}>
+          <FontAwesome name={item.icon}></FontAwesome>
+          {item.text}
+        </Link>
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -62,4 +110,4 @@ const SideNavigationItems = function(props){
   );
 };
 
-export default SideNavigationItems;
+export default withRouter(SideNavigationItems);

@@ -8,8 +8,8 @@ import Footer from '../../components/footer/Footer';
 
 class Layout extends Component{
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       showNav:false
     };
@@ -28,6 +28,7 @@ class Layout extends Component{
           showNav={this.state.showNav}
           onHideNav={()=>this.toggleSideNav(false)}
           onOpenNav={()=>this.toggleSideNav(true)}
+          user={this.props.user}
           />
         {this.props.children}
         <Footer />

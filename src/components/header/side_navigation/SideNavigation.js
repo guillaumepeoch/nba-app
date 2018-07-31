@@ -18,6 +18,7 @@ const SideNavigation = function(props){
     >
       <SideNavigationItems
         onHideNav={props.onHideNav}
+        user={props.user}
       />
     </SideNav>
   );
