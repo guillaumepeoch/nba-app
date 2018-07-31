@@ -4,7 +4,6 @@ import styles from './form_fields.css';
 const FormFields = function(props){
 
   let template = null;
-  console.log(props)
 
   switch(props.formdata.element){
     case 'input':

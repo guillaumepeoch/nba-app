@@ -26,7 +26,7 @@ class SignIn extends Component {
       },
       password:{
         element:'input',
-        value:'',
+        value:'eeee',
         config:{
           name:'password',
           type:'password',
@@ -43,8 +43,22 @@ class SignIn extends Component {
     }
   }
 
-  updateState(e, id, blur){
-      console.log(e, id, blur);
+  updateForm = (e, id, blur) => {
+
+      const newFormData = {
+        ...this.state.formdata
+      }
+
+      const newElement = {
+        ...newFormData[id]
+      }
+
+      newElement.value = e.target.value;
+      newFormData[id]=newElement;
+
+      this.setState({
+        formdata:newFormData
+      })
   }
 
   render(){
@@ -55,8 +69,13 @@ class SignIn extends Component {
         <FormField
           id='email'
           formdata={this.state.formdata.email}
-          change={this.updateState}/>
-        <FormField formdata={this.state.formdata.password}/>
+          change={this.updateForm}
+          />
+        <FormField
+          id='password'
+          formdata={this.state.formdata.password}
+          change={this.updateForm}
+          />
       </form>
     </div>
   );
