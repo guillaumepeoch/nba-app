@@ -13,7 +13,7 @@ import Layout from './hoc/layout/Layout'
 class Routes extends Component {
   render() {
     return (
-      <Layout>
+      <Layout user={this.props.user}>
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/news" exact component={News} />

@@ -30,6 +30,7 @@ import * as firebase from 'firebase';
   const firebaseVideos = firebaseDB.ref('videos');
 
   export {
+    firebase,
     firebaseDB,
     firebaseArticles,
     firebaseTeams,
