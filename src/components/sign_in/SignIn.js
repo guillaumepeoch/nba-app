@@ -26,7 +26,7 @@ class SignIn extends Component {
       },
       password:{
         element:'input',
-        value:'eeee',
+        value:'',
         config:{
           name:'password',
           type:'password',
@@ -34,7 +34,7 @@ class SignIn extends Component {
         },
         validation:{
           required:true,
-          email:true
+          password:true
         },
         valid:false,
         touched:false,
@@ -56,9 +56,43 @@ class SignIn extends Component {
       newElement.value = e.target.value;
       newFormData[id]=newElement;
 
+      if(blur){
+        const error = this.validate(newElement);
+        newElement.valid = error[0];
+        newElement.validationMessage = error[1];
+      }
+
+      newElement.touched = blur;
+      newFormData[id] = newElement
+
       this.setState({
         formdata:newFormData
       })
+  }
+
+  validate(element){
+    let error = [true,''];
+
+    if(element.validation.email){
+        const valid = /\S+@\S+\S+/.test(element.value)
+        const message = valid ? '':'Must be a valid email';
+        error = valid ? error : [valid, message];
+    }
+
+    if(element.validation.password){
+        const passwordLength = 5
+        const valid = element.value.length >= passwordLength;
+        const message = valid ? '':'Must be greater than '+passwordLength;
+        error = valid ? error : [valid, message];
+    }
+
+    if(element.validation.required){
+        const valid = element.value.trim() !== '';
+        const message = valid ? '':'This field is required';
+        error = valid ? error : [valid, message];
+    }
+
+    return error;
   }
 
   render(){
