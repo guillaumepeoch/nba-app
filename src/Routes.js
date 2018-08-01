@@ -6,6 +6,7 @@ import Articles from './components/articles/news/post/index';
 import News from './components/news/News';
 import ArticleVideos from './components/articles/videos/video/index';
 import Videos from './components/videos/Videos';
+import Dashboard from './components/dashboard/Dashboard';
 import SignIn from './components/sign_in/SignIn';
 
 import Layout from './hoc/layout/Layout'
@@ -20,6 +21,7 @@ class Routes extends Component {
           <Route path="/article/:id" exact component={Articles} />
           <Route path="/videos" exact component={Videos} />
           <Route path="/video/:id" exact component={ArticleVideos} />
+          <Route path="/dashboard" exact component={Dashboard} />
           <Route path="/sign-in" exact component={SignIn} />
         </Switch>
       </ Layout>

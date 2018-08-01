@@ -36,6 +36,13 @@ const SideNavigationItems = function(props){
     {
         type: style.option,
         icon: 'sign-in',
+        text: 'Dashboard',
+        link: '/dashboard',
+        login: ''
+    },
+    {
+        type: style.option,
+        icon: 'sign-in',
         text: 'Sign in',
         link: '/sign-in',
         login: true
