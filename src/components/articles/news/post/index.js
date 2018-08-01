@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import Header from './Header';
 import styles from '../../articles.css';
-import { firebaseDB, firebaseTeams, firebaseLooper } from '../../../../firebase';
+import { firebase, firebaseDB, firebaseTeams, firebaseLooper } from '../../../../firebase';
 import moment from 'moment';
 
 class Index extends Component {
   state = {
     article:{},
-    team:''
+    team:'',
+    imageURL:''
   }
 
   componentWillMount(){
@@ -22,13 +23,22 @@ class Index extends Component {
           article:article,
           team:team
         });
+
+        firebase
+          .storage()
+          .ref("images")
+          .child(article.file)
+          .getDownloadURL()
+          .then(url =>{
+            this.setState({ imageURL: url })
+        });
       })
       .catch(function(e){
-        console.log(e)
+        console.error(e)
       })
     })
     .catch(function(e){
-      console.log(e);
+      console.error(e);
     });
 
 
@@ -67,15 +77,17 @@ class Index extends Component {
           <h1> {this.state.title} </h1>
           <div
             className={styles.articleImage}
-            style={{background:`url('/images/articles/${this.state.article.image}')`}}
+            style={{background:`url('${this.state.imageURL}')`}}
           >
           </div>
-          <div className={styles.articleText}>
-            {this.state.article.body}
+          <div className={styles.articleText}
+              dangerouslySetInnerHTML={{
+                  __html:this.state.article.body
+              }}
+          >
           </div>
-        </div>
       </div>
-
+    </div>
     );
   }
 }
