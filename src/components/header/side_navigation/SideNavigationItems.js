@@ -9,8 +9,6 @@ import style from './sideNavigation.css';
 
 const SideNavigationItems = function(props){
 
-  console.log(props.user)
-
   const items = [
     {
         type: style.option,

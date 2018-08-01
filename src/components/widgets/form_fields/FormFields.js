@@ -4,8 +4,8 @@ import styles from './form_fields.css';
 const FormFields = function(props){
 
   const getOptions = function(optionsArray){
-    const template = optionsArray.map(function(option){
-      return(<option value={option.id}>{option.name}</option>);
+    const template = optionsArray.map(function(option,i){
+      return(<option key={i} value={option.id}>{option.name}</option>);
     });
     return template;
   }
@@ -48,10 +48,9 @@ const FormFields = function(props){
           }}
           onBlur={function(event){
             return props.change(event,props.id,true)
-          }}
-          className={styles.inputContainer}>
+          }}>
           { getOptions(props.formdata.config.options) }
-      </select>
+        </select>
       );
       break;
     default:

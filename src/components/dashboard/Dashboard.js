@@ -1,7 +1,7 @@
 import React , { Component } from 'react';
 import styles from './dashboard.css';
 import FormField from '../widgets/form_fields/FormFields';
-import { firebase } from '../../firebase';
+import { firebase, firebaseTeams, firebaseLooper } from '../../firebase';
 
 import { Editor } from 'react-draft-wysiwyg';
 import { EditorState, convertFromRaw, convertToRaw } from 'draft-js';
@@ -53,10 +53,7 @@ class Dashboard extends Component {
         element:'select',
         value:'',
         config:{
-          options:[
-            {id:1,name:"OKC"},
-            {id:2,name:"SAS"}
-          ]
+          options:[]
         },
         validation:{
           required:true
@@ -163,6 +160,43 @@ class Dashboard extends Component {
     }
   }
 
+  componentDidMount(){
+    if(!this.state.formdata.team.config.options.length){
+      this.getTeams();
+    }
+  }
+
+  getTeams(){
+    firebaseTeams.once('value')
+    .then((res)=>{
+      const teams = firebaseLooper(res.val());
+      this.updateTeamState(teams);
+    })
+    .catch(function(e){
+      console.log(e);
+    });
+  }
+
+  updateTeamState(arrayOfTeams){
+    const teams = arrayOfTeams.map(function(team){
+      return {id:team.teamId, name:team.name};
+    });
+
+    let newState = {
+      ...this.state
+    }
+
+    let newFormData = {
+      ...newState.formdata
+    }
+
+    newFormData.team.config.options = teams
+
+    this.setState({
+      ...newFormData
+    });
+
+  }
 
   showError = () => (
         this.state.postError !== '' ?
