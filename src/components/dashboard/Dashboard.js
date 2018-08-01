@@ -1,11 +1,12 @@
 import React , { Component } from 'react';
 import styles from './dashboard.css';
 import FormField from '../widgets/form_fields/FormFields';
-import { firebase, firebaseTeams, firebaseLooper } from '../../firebase';
+import { firebase, firebaseTeams, firebaseArticles,firebaseLooper } from '../../firebase';
 
 import { Editor } from 'react-draft-wysiwyg';
-import { EditorState, convertFromRaw, convertToRaw } from 'draft-js';
+import { EditorState } from 'draft-js';
 import { stateToHTML } from 'draft-js-export-html';
+import FileUploader from '../widgets/file_uploader/FileUploader';
 
 class Dashboard extends Component {
   state = {
@@ -14,6 +15,11 @@ class Dashboard extends Component {
     registerError:'',
     loading:false,
     formdata:{
+      file:{
+        element:'FileUploader',
+        value:'',
+        valid:true
+      },
       title:{
         element:'input',
         value:'',
@@ -68,7 +74,6 @@ class Dashboard extends Component {
   onEditorStateChange = (editorState) => {
 
     let contentState = editorState.getCurrentContent();
-    let rawState = convertToRaw(contentState)
 
     let html = stateToHTML(contentState)
 
@@ -142,18 +147,41 @@ class Dashboard extends Component {
 
       console.log(dataToSubmit);
 
+      let lastArticleID = 0;
+
+      firebaseArticles
+      .orderByChild('id')
+      .limitToLast(1)
+      .once('value')
+      .then((snapshot)=>{
+        const lastArticle = snapshot.val();
+        for(let key in lastArticle){
+          lastArticleID = lastArticle[key].id
+        }
+
+        dataToSubmit['date'] = firebase.database.ServerValue.TIMESTAMP
+        dataToSubmit['id'] = lastArticleID + 1;
+        dataToSubmit['team'] = parseInt(dataToSubmit['team'],10);
+
+        firebaseArticles.push(dataToSubmit)
+        .then((article)=>{
+          this.props.history.push(`/article/${article.key}`);
+        })
+        .catch((e)=>{
+          this.setState({
+               postError: e.message
+           })
+        })
+      })
+
       if(valid){
         this.setState({
           loading:true,
           registerError:''
         })
-        if(type){
-          // LOGIN
 
-        } else {
-          // REGISTER
 
-        }
+
       } else {
         console.log('Not valid!');
       }
@@ -199,10 +227,28 @@ class Dashboard extends Component {
   }
 
   showError = () => (
-        this.state.postError !== '' ?
-            <div className={styles.error}>{this.state.postError}</div>
-        : ''
-    )
+      this.state.postError !== '' ?
+          <div className={styles.error}>{this.state.postError}</div>
+      : ''
+  )
+
+  getFileName = (fileName) => {
+    let newState = {
+      ...this.state
+    }
+
+    let newFormData = {
+      ...newState.formdata
+    }
+
+    console.log(fileName);
+
+    newFormData.file.value = fileName;
+
+    this.setState({
+      ...newFormData
+    });
+  }
 
   render(){
     return(
@@ -210,6 +256,10 @@ class Dashboard extends Component {
         <form onSubmit={(e)=>this.submitForm(e,null)}>
 
           <h2>Post Article</h2>
+
+          <FileUploader
+            filename={(fileName)=>this.getFileName(fileName)}
+            />
 
           <FormField
             id='title'
