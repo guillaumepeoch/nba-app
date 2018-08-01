@@ -23,10 +23,11 @@ const SliderTemplates = function(props){
 
     case 'featured':
       template = props.data.map(function(article){
+        console.log(article.imageSrc);
         return(
           <div key={article.id}>
             <div className={styles.article}>
-              <img className={styles.image} alt="article" src={`../images/articles/${article.image}`}/>
+              <img className={styles.image} alt="article" src={article.imageSrc ? article.imageSrc : article.image}/>
               <Link className={styles.link} to={`article/${article.id}`}>
                 <div className={styles.linka}>
                   {article.title}
