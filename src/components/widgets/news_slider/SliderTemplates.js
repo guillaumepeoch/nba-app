@@ -23,7 +23,6 @@ const SliderTemplates = function(props){
 
     case 'featured':
       template = props.data.map(function(article){
-        console.log(article.imageSrc);
         return(
           <div key={article.id}>
             <div className={styles.article}>

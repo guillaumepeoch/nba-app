@@ -58,7 +58,7 @@ class FileUploader extends Component {
           : null
         }
         { this.state.fileURL ?
-            <img src={this.state.fileURL} />
+            <img src={this.state.fileURL} alt="uploaded"/>
           : null
         }
       </div>
